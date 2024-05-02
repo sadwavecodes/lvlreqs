@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Geometry Dash Level Requests website with requests sent directly to me where I will send good ones to moderators.">
+  <title>Geometry Dash Level Requests</title>
+  <link rel="icon" type="image/png" href="mod button.ico">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('bg.jpeg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow:hidden;
+    }
+    .title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .title img {
+      width: 350px;
+    }
+    input {
+      max-width: 400px;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 25px;
+      color: aliceblue;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      border: none;
+    }
+    .gd {
+      text-align: center;
+      margin-top: -50px;
+      padding: 20px;
+    }
+    .gd img {
+      max-width: 100%;
+      height: auto;
+    }
+    .discord-button img,
+    .youtube-button img {
+      max-width: 12%;
+      max-height: 100%;
+    }
+    .button {
+      text-align: center;
+  
+    }
+    input[type=id] {
+      padding: 50px;
+      background-color: rgb(15, 34, 83);
+      background-image: url("enterid.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 250px;
+      margin-left:20px;
+    }
+    input[type='id']:focus { 
+      background-image: none;
+      font-size: 25px;
+    }
+input[type='id']:not(:placeholder-shown):focus { 
+  background-image: none;
+}
+
+input[type='id']:focus:not(:placeholder-shown) { 
+  background-image: none;
+  font-size: 25px;
+}
+
+    input[type='id'].entered { 
+  background-image: none;
+}
+
+input[type='id']:focus { 
+  font-size: 25px;
+}
+
+    .login {
+text-align:center;
+
+    }
+
+    .login img {
+      max-width: 50%;
+      max-height: 100%;
+      margin-top:10px;
+
+    }
+
+
+    .audiobut button {
+      background-color:rgb(15, 34, 83);
+      border : none;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      color:aliceblue;
+      font-size:16px;
+    }
+
+    .slider {
+      margin-top:5px;
+    }
+
+    
+    
+  </style>
+</head>
+<body>
+
+  <audio id="myAudio">
+    <source src="bgm.mp3" type="audio/mp3">
+    Your browser doesn't support audio!
+  </audio>
+
+  <div class="gd">
+    <img src="logo - Geometry Dash.png">
+  </div>
+  <div class="title">
+    <a href="https://discord.gg/gdrequests" class="discord-button">
+      <img src="discordbut.png" alt="Discord Button">
+    </a>
+    <img src="gold - Level Requests.png" alt="Title"> 
+
+    <a href="https://youtube.com/@sadwave_" class="youtube-button">
+      <img src="youtubebut.png" alt="Youtube Button">
+    </a>
+  </div>
+  <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="disableButton()">
+    <input name="id" type="id" id="id" placeholder="" required>
+    <div class="button">
+      <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
+    </div>
+  </form>
+
+  <div class="audiobut">
+    <button onclick="playAudio()"  id="play" type="button">Play Background Music</button>
+    <button onclick="pauseAudio()"  id="pause" type="button">Pause Background Music</button> 
+    </div>
+    <div class="slider">
+    <input type="range" id="volume-slider" min="50" max="100" class="slider">
+    </div>
+    
+
+
+
+  <div class="login">
+    <a href="login.html">
+      <img src="login.png" alt="Login Button">
+  </div>
+
+</body>
+    
+  <script>
+    document.getElementById("pause").style.display = "none";
+    document.getElementById("volume-slider").style.display = "none";
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxQLbxjtXGNMc24zcFTLUKuy2abGw2QOF7BP77Mrb7F5W9VaABNbn60QoC1tT8HXQ5F/exec'
+    const form = document.forms['submit-to-google-sheet']
+    var x = document.getElementById("myAudio")
+
+
+    let volume = document.getElementById('volume-slider');
+volume.addEventListener("change", function(h) {
+    x.volume = h.currentTarget.value / 100;
+})
+
+
+    function playAudio() { 
+        x.play();
+        x.loop = true;
+        document.getElementById("pause").style.display = "block";
+        document.getElementById("play").style.display = "none";
+        document.getElementById("volume-slider").style.display = "block";
+
+      } 
+      function pauseAudio() { 
+      x.pause(); 
+      document.getElementById("pause").style.display = "none";
+        document.getElementById("play").style.display = "block";
+        document.getElementById("volume-slider").style.display = "none";
+}
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success! Level was sent!'))
+        .catch(error => console.log('Error Level Not Sent: ' + error.message))
+    })
+document.addEventListener('DOMContentLoaded', function () {
+    const inputBox = document.querySelector('input[type="id"]');
+    inputBox.addEventListener('input', function () {
+        if (inputBox.value.trim() !== '') {
+            inputBox.classList.add('entered');
+        } else {
+            inputBox.classList.remove('entered');
+        }
+    });
+});
+
+
+function disableButton() {
+        var btn = document.getElementById('btn');
+        btn.disabled = true;
+        document.getElementById("id").style.backgroundImage = "url(idsent.png)";
+        document.getElementById("googlesheetid").reset();
+        
+
+    }
+    
+  </script>
+</body>
+</html>
