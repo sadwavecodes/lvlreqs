@@ -178,8 +178,8 @@ form.addEventListener('submit', e => {
     
 
     let volume = document.getElementById('volume-slider');
-volume.addEventListener("change", function(h) {
-    x.volume = h.currentTarget.value / 100;
+volume.addEventListener("change", function(e) {
+    x.volume = e.currentTarget.value / 100;
 })
 
 
