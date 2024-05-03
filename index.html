@@ -135,7 +135,7 @@ text-align:center;
       <img src="youtubebut.png" alt="Youtube Button">
     </a>
   </div>
-  <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="disableButton()">
+  <form name="submit-to-google-sheet" id="gdyes" onsubmit="disableButton()">
     <input name="id" type="id" id="id" placeholder="" required>
     <div class="button">
       <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
@@ -172,8 +172,8 @@ text-align:center;
 form.addEventListener('submit', e => {
       e.preventDefault()
       fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => alert('Success! Level was sent!'))
-        .catch(error => alert('Error: ' + error.message))
+        .then(response => console.log('Success! Level was sent!'))
+        .catch(error => console.log('Error: ' + error.message))
     })
     
 
@@ -216,7 +216,7 @@ function disableButton() {
         var btn = document.getElementById('btn');
         btn.disabled = true;
         document.getElementById("id").style.backgroundImage = "url(idsent.png)";
-        document.getElememtById("googlesheetid").style.fontSize = "1px";
+        document.getElememtById("gdyes").style.fontSize = "1px";
         
 
     }
