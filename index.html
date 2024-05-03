@@ -165,10 +165,17 @@ text-align:center;
     document.getElementById("volume-slider").style.display = "none";
 
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxQLbxjtXGNMc24zcFTLUKuy2abGw2QOF7BP77Mrb7F5W9VaABNbn60QoC1tT8HXQ5F/exec'
-       const submitButton = document.querySelector("#submit")
     const form = document.forms['submit-to-google-sheet']
+
     var x = document.getElementById("myAudio")
 
+form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => alert('Success! Level was sent!'))
+        .catch(error => alert('Error: ' + error.message))
+    })
+    
 
     let volume = document.getElementById('volume-slider');
 volume.addEventListener("change", function(h) {
@@ -191,12 +198,8 @@ volume.addEventListener("change", function(h) {
         document.getElementById("volume-slider").style.display = "none";
 }
 
-    form.addEventListener('submit', e => {
-      e.preventDefault()
-      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-        .then(response => console.log('Success! Level was sent!'))
-        .catch(error => console.log('Error Level Not Sent: ' + error.message))
-    })
+    
+    
 document.addEventListener('DOMContentLoaded', function () {
     const inputBox = document.querySelector('input[type="id"]');
     inputBox.addEventListener('input', function () {
