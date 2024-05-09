@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Geometry Dash Level Requests website with requests sent directly to bemqwertyyi.">
+  <title>Geometry Dash Level Requests</title>
+  <link rel="icon" type="image/png" href="mod button.ico">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    
+    
+    
+  </style>
+</head>
+<body>
+
+  <div class ="corner1">
+    <img src="corner.png">
+  </div>
+  
+  <div class ="corner2">
+    <img src="corner.png">
+  </div>
+
+  <div class ="corner3">
+    <img src="corner.png">
+  </div>
+
+  <div class ="corner4">
+    <img src="corner.png">
+  </div>
+
+  <audio id="myAudio">
+    <source src="bgm.mp3" type="audio/mp3">
+    Your browser doesn't support audio!
+  </audio>
+
+  <div class="gd">
+    <img src="logo - Geometry Dash.png">
+  </div>
+  <div class="title">
+    <a href="https://discord.gg/Gp5uV2gZmn" class="discord-button">
+      <img src="discordbut.png" alt="Discord Button">
+    </a>
+    <img src="gold - Level Requests.png" alt="Title"> 
+
+    <a href="https://www.youtube.com/@Bemqwertyyi" class="youtube-button">
+      <img src="youtubebut.png" alt="Youtube Button">
+    </a>
+  </div>
+  <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="disableButton()">
+    <input name="id" type="id" id="id" placeholder="" required>
+    <div class="button">
+      <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
+    </div>
+  </form>
+
+  <div class="audiobut">
+    <img src="musicon.png" id="play" onclick="playAudio()">
+    <img src="musicoff.png" id="pause" onclick="pauseAudio()">
+    
+    </div>
+    
+
+
+
+  <div class="login">
+    <a href="https://sadwave.cloud">
+      <img src="login.png" alt="Login Button">
+  </div>
+
+</body>
+    
+  <script>
+    document.getElementById("pause").style.display = "none";
+
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzWjtGX471LhkPlkmCUUN5AB9dpJSrT3SVzzAHpJQbwW9X9-S_9l6FT-n5QrYvHkl1Eaw/exec'
+    const form = document.forms['submit-to-google-sheet']
+    var x = document.getElementById("myAudio")
+
+
+
+    function playAudio() { 
+        x.play();
+        x.loop = true;
+        document.getElementById("pause").style.display = "inline";
+        document.getElementById("play").style.display = "none";
+
+      } 
+      function pauseAudio() { 
+      x.pause(); 
+      document.getElementById("pause").style.display = "none";
+        document.getElementById("play").style.display = "inline";
+}
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => console.log('Success! Level was sent!'))
+        .catch(error => console.log('Error Level Not Sent: ' + error.message))
+    })
+document.addEventListener('DOMContentLoaded', function () {
+    const inputBox = document.querySelector('input[type="id"]');
+    inputBox.addEventListener('input', function () {
+        if (inputBox.value.trim() !== '') {
+            inputBox.classList.add('entered');
+        } else {
+            inputBox.classList.remove('entered');
+        }
+    });
+});
+
+
+function disableButton() {
+        var btn = document.getElementById('btn');
+        btn.disabled = true;
+        document.getElementById("id").style.backgroundImage = "url(idsent.png)";
+        document.getElementById("googlesheetid").style.fontSize = "1px";
+        
+
+    }
+    
+  </script>
+</body>
+</html>
