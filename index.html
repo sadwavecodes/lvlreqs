@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,7 +84,47 @@
 
     
   <script>
-    function _0x43d3(_0x882d4f,_0x10c0f4){const _0x40a8e1=_0x40a8();return _0x43d3=function(_0x43d335,_0x5ee66b){_0x43d335=_0x43d335-0x10c;let _0x40f09=_0x40a8e1[_0x43d335];return _0x40f09;},_0x43d3(_0x882d4f,_0x10c0f4);}const _0x59c459=_0x43d3;(function(_0xe3e95a,_0x2320e6){const _0x3fd252=_0x43d3,_0x1e88d6=_0xe3e95a();while(!![]){try{const _0xa5199=parseInt(_0x3fd252(0x10e))/0x1+-parseInt(_0x3fd252(0x135))/0x2*(-parseInt(_0x3fd252(0x131))/0x3)+-parseInt(_0x3fd252(0x117))/0x4+-parseInt(_0x3fd252(0x134))/0x5*(-parseInt(_0x3fd252(0x11a))/0x6)+-parseInt(_0x3fd252(0x112))/0x7*(parseInt(_0x3fd252(0x11b))/0x8)+parseInt(_0x3fd252(0x12a))/0x9*(-parseInt(_0x3fd252(0x120))/0xa)+parseInt(_0x3fd252(0x110))/0xb*(parseInt(_0x3fd252(0x11d))/0xc);if(_0xa5199===_0x2320e6)break;else _0x1e88d6['push'](_0x1e88d6['shift']());}catch(_0x46cfe7){_0x1e88d6['push'](_0x1e88d6['shift']());}}}(_0x40a8,0xbf7bf),document['getElementById'](_0x59c459(0x122))[_0x59c459(0x127)]['display']=_0x59c459(0x128));function _0x40a8(){const _0x9ddd2a=['none','-99999px','36ninxSU','btn','submit-to-google-sheet','textIndent','getElementById','submit','catch','560571KscgHw','POST','value','5445uQCyLk','4sbWIpT','then','loop','trim','forms','707788iczuII','https://script.google.com/macros/s/AKfycbxQLbxjtXGNMc24zcFTLUKuy2abGw2QOF7BP77Mrb7F5W9VaABNbn60QoC1tT8HXQ5F/exec','1177JbRsEG','play','91VEArtU','add','inline','entered','message','76276ElkcWC','classList','remove','162LCsXXL','254768tklceG','log','182244JIvXZD','preventDefault','myAudio','3796320MdSBPb','addEventListener','pause','display','input[type=\x22id\x22]','querySelector','url(idsent.png)','style'];_0x40a8=function(){return _0x9ddd2a;};return _0x40a8();}const scriptURL=_0x59c459(0x10f),form=document[_0x59c459(0x10d)][_0x59c459(0x12c)];var x=document[_0x59c459(0x12e)](_0x59c459(0x11f));function playAudio(){const _0x2a0977=_0x59c459;x['play'](),x[_0x2a0977(0x137)]=!![],document[_0x2a0977(0x12e)](_0x2a0977(0x122))[_0x2a0977(0x127)][_0x2a0977(0x123)]=_0x2a0977(0x114),document[_0x2a0977(0x12e)](_0x2a0977(0x111))[_0x2a0977(0x127)][_0x2a0977(0x123)]=_0x2a0977(0x128);}function pauseAudio(){const _0xf65fdd=_0x59c459;x[_0xf65fdd(0x122)](),document[_0xf65fdd(0x12e)]('pause')[_0xf65fdd(0x127)][_0xf65fdd(0x123)]=_0xf65fdd(0x128),document[_0xf65fdd(0x12e)](_0xf65fdd(0x111))['style'][_0xf65fdd(0x123)]='inline';}form[_0x59c459(0x121)](_0x59c459(0x12f),_0x173d6a=>{const _0x268177=_0x59c459;_0x173d6a[_0x268177(0x11e)](),fetch(scriptURL,{'method':_0x268177(0x132),'body':new FormData(form)})[_0x268177(0x136)](_0x36b318=>console[_0x268177(0x11c)]('Success!\x20Level\x20was\x20sent!'))[_0x268177(0x130)](_0x3c6d23=>console[_0x268177(0x11c)]('Error\x20Level\x20Not\x20Sent:\x20'+_0x3c6d23[_0x268177(0x116)]));}),document[_0x59c459(0x121)]('DOMContentLoaded',function(){const _0x8380b8=_0x59c459,_0x3e173c=document[_0x8380b8(0x125)](_0x8380b8(0x124));_0x3e173c[_0x8380b8(0x121)]('input',function(){const _0x4935ec=_0x8380b8;_0x3e173c[_0x4935ec(0x133)][_0x4935ec(0x10c)]()!==''?_0x3e173c[_0x4935ec(0x118)][_0x4935ec(0x113)](_0x4935ec(0x115)):_0x3e173c[_0x4935ec(0x118)][_0x4935ec(0x119)](_0x4935ec(0x115));});});function disableButton(){const _0x2d175b=_0x59c459;var _0x309cb5=document['getElementById'](_0x2d175b(0x12b));_0x309cb5['disabled']=!![],document['getElementById']('id')['style']['backgroundImage']=_0x2d175b(0x126),document[_0x2d175b(0x12e)]('id')[_0x2d175b(0x127)][_0x2d175b(0x12d)]=_0x2d175b(0x129);}
+    // Function to handle form submission and send the level request
+function handleFormSubmit(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Get the level ID from the form input
+    const levelId = document.getElementById("id").value;
+
+    // Check if the level ID is not empty
+    if (levelId.trim() === "") {
+        alert("Please enter a valid level ID.");
+        return;
+    }
+
+    // Send the POST request with the level ID to the /request_level endpoint
+    fetch('https://sadwave1.pythonanywhere.com/request_level', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ level_id: levelId }) // Send level ID as JSON
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json(); // Parse the response as JSON
+        } else {
+            throw new Error('Failed to submit level request');
+        }
+    })
+    .then(data => {
+        console.log('Success:', data); // Handle success
+        alert('Level request submitted successfully!');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error submitting level request');
+    });
+}
+
+// Add event listener to the form
+document.getElementById("googlesheetid").addEventListener("submit", handleFormSubmit);
+
   </script>
 </body>
 </html>
