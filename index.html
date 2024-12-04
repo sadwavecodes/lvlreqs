@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +10,35 @@
   <link rel="icon" type="image/png" href="mod button.ico">
   <link rel="stylesheet" href="styles.css">
   <style>
-    #googlesheetid {
-      transition: padding 0.3s ease;
+    /* Retain existing styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
     }
-    .hidden {
-      padding-bottom: 1000px;
+    #googlesheetid {
+      text-align: center;
+      margin-top: 20px;
+    }
+    #id {
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+    .button input {
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+
+    /* Transition for hiding the input */
+    #id.hidden {
       visibility: hidden;
+      height: 0;
+      margin: 0;
+      padding: 0;
     }
   </style>
 </head>
@@ -25,15 +47,12 @@
   <div class="corner1">
     <img src="corner.png">
   </div>
-  
   <div class="corner2">
     <img src="corner.png">
   </div>
-
   <div class="corner3">
     <img src="corner.png">
   </div>
-
   <div class="corner4">
     <img src="corner.png">
   </div>
@@ -56,8 +75,11 @@
     </a>
   </div>
 
+  <!-- Form section -->
   <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="handleFormSubmit(event)">
-    <input name="id" type="text" id="id" placeholder="Enter ID here" required>
+    <div id="enterIdContainer">
+      <input name="id" type="text" id="id" placeholder="Enter ID here" required>
+    </div>
     <div class="button">
       <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
     </div>
@@ -90,7 +112,7 @@
       isPlaying = !isPlaying;
     }
 
-    // Hide placeholder text when typing
+    // Placeholder functionality for input
     const inputField = document.getElementById("id");
     inputField.addEventListener("input", () => {
       inputField.placeholder = inputField.value ? "" : "Enter ID here";
@@ -100,36 +122,36 @@
     function handleFormSubmit(event) {
       event.preventDefault(); // Prevent the default form submission
 
-      // Get the level ID from the form input
+      // Get the level ID
       const levelId = document.getElementById("id").value;
 
-      // Check if the level ID is not empty
+      // Check if the ID is valid
       if (levelId.trim() === "") {
         alert("Please enter a valid level ID.");
         return;
       }
 
-      // Add the hidden class to the form to add padding and hide it
-      const form = document.getElementById("googlesheetid");
-      form.classList.add("hidden");
+      // Hide the input field but keep the form structure intact
+      const inputContainer = document.getElementById("enterIdContainer");
+      inputContainer.classList.add("hidden");
 
-      // Send the POST request with the level ID to the /request_level endpoint
+      // Send POST request to the server
       fetch('https://sadwave1.pythonanywhere.com/request_level', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ level_id: levelId }) // Send level ID as JSON
+        body: JSON.stringify({ level_id: levelId })
       })
       .then(response => {
         if (response.ok) {
-          return response.json(); // Parse the response as JSON
+          return response.json();
         } else {
           throw new Error('Failed to submit level request');
         }
       })
       .then(data => {
-        console.log('Success:', data); // Handle success
+        console.log('Success:', data);
         alert('Level request submitted successfully!');
       })
       .catch(error => {
