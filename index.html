@@ -11,33 +11,33 @@
   <link rel="icon" type="image/png" href="mod button.ico">
   <link rel="stylesheet" href="styles.css">
   <style>
-    
-    
-    
+    #googlesheetid {
+      transition: padding 0.3s ease;
+    }
+    .hidden {
+      padding-bottom: 1000px;
+      visibility: hidden;
+    }
   </style>
 </head>
 
-
-
 <body>
-  <div class ="corner1">
+  <div class="corner1">
     <img src="corner.png">
   </div>
   
-  <div class ="corner2">
+  <div class="corner2">
     <img src="corner.png">
   </div>
 
-  <div class ="corner3">
+  <div class="corner3">
     <img src="corner.png">
   </div>
 
-  <div class ="corner4">
+  <div class="corner4">
     <img src="corner.png">
   </div>
   
-
-
   <audio id="myAudio">
     <source src="bgm.mp3" type="audio/mp3">
     Your browser doesn't support audio!
@@ -51,80 +51,92 @@
       <img src="discordbut.png" alt="Discord Button">
     </a>
     <img src="gold - Level Requests.png" alt="Title"> 
-
     <a href="https://youtube.com/@sadwave_" class="youtube-button">
       <img src="youtubebut.png" alt="Youtube Button">
     </a>
   </div>
-  <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="disableButton()">
-    <input name="id" type="id" id="id" placeholder="" required>
+
+  <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="handleFormSubmit(event)">
+    <input name="id" type="text" id="id" placeholder="Enter ID here" required>
     <div class="button">
       <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
     </div>
   </form>
 
-
   <div class="audiobut">
-    <img src="musicon.png" id="play" onclick="playAudio()">
-    <img src="musicoff.png" id="pause" onclick="pauseAudio()">
-    
-    </div>
-    
-
-
-
-
+    <img src="musicon.png" id="playPauseButton" onclick="toggleAudio()" alt="Music Toggle">
+  </div>
 
   <div class="login">
     <a href="https://sadwave.cloud">
       <img src="login.png" alt="Login Button">
+    </a>
   </div>
 
-
-
-    
   <script>
-    // Function to handle form submission and send the level request
-function handleFormSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission
+    // Audio toggle functionality
+    let isPlaying = false;
+    const audio = document.getElementById("myAudio");
+    const playPauseButton = document.getElementById("playPauseButton");
 
-    // Get the level ID from the form input
-    const levelId = document.getElementById("id").value;
-
-    // Check if the level ID is not empty
-    if (levelId.trim() === "") {
-        alert("Please enter a valid level ID.");
-        return;
+    function toggleAudio() {
+      if (isPlaying) {
+        audio.pause();
+        playPauseButton.src = "musicoff.png";
+      } else {
+        audio.play();
+        playPauseButton.src = "musicon.png";
+      }
+      isPlaying = !isPlaying;
     }
 
-    // Send the POST request with the level ID to the /request_level endpoint
-    fetch('https://sadwave1.pythonanywhere.com/request_level', {
+    // Hide placeholder text when typing
+    const inputField = document.getElementById("id");
+    inputField.addEventListener("input", () => {
+      inputField.placeholder = inputField.value ? "" : "Enter ID here";
+    });
+
+    // Handle form submission
+    function handleFormSubmit(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Get the level ID from the form input
+      const levelId = document.getElementById("id").value;
+
+      // Check if the level ID is not empty
+      if (levelId.trim() === "") {
+        alert("Please enter a valid level ID.");
+        return;
+      }
+
+      // Add the hidden class to the form to add padding and hide it
+      const form = document.getElementById("googlesheetid");
+      form.classList.add("hidden");
+
+      // Send the POST request with the level ID to the /request_level endpoint
+      fetch('https://sadwave1.pythonanywhere.com/request_level', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({ level_id: levelId }) // Send level ID as JSON
-    })
-    .then(response => {
+      })
+      .then(response => {
         if (response.ok) {
-            return response.json(); // Parse the response as JSON
+          return response.json(); // Parse the response as JSON
         } else {
-            throw new Error('Failed to submit level request');
+          throw new Error('Failed to submit level request');
         }
-    })
-    .then(data => {
+      })
+      .then(data => {
         console.log('Success:', data); // Handle success
         alert('Level request submitted successfully!');
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error:', error);
         alert('Error submitting level request');
-    });
-}
-
-// Add event listener to the form
-document.getElementById("googlesheetid").addEventListener("submit", handleFormSubmit);
-
+      });
+    }
   </script>
 </body>
 </html>
