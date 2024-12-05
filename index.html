@@ -10,27 +10,6 @@
   <link rel="icon" type="image/png" href="mod button.ico">
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Retain existing styles */
-
-form {
-  background-color: #000080; /* Navy blue background */
-  color: #fff; /* White text color */
-  padding: 20px; /* Add some padding for better spacing */
-  border-radius: 10px; /* Optional: Add rounded corners */
-  text-align: center; /* Center align text */
-}
-
-form input[type="text"] {
-  background-color: #000080; /* Navy blue background for the input */
-  color: #fff; /* White text color for the input */
-  border: 2px solid #fff; /* White border */
-  border-radius: 5px; /* Rounded corners */
-}
-
-form input[type="text"]::placeholder {
-  color: #ccc; /* Light gray placeholder text */
-}
-
     
     body {
       font-family: Arial, sans-serif;
@@ -99,10 +78,10 @@ form input[type="text"]::placeholder {
   <!-- Form section -->
   <form name="submit-to-google-sheet" id="googlesheetid" onsubmit="handleFormSubmit(event)">
     <div id="enterIdContainer">
-      <input name="id" type="id" id="id" placeholder="Enter ID here" required>
+      <input name="id" type="id" id="id" placeholder="" required>
     </div>
     <div class="button">
-      <input id="btn" type="id" src="sendlevel.png" alt="Send Level">
+      <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
     </div>
   </form>
 
