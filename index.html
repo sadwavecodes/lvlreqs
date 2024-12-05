@@ -133,11 +133,7 @@ form input[type="text"]::placeholder {
       isPlaying = !isPlaying;
     }
 
-    // Placeholder functionality for input
-    const inputField = document.getElementById("id");
-    inputField.addEventListener("input", () => {
-      inputField.placeholder = inputField.value ? "" : "Enter ID here";
-    });
+
 
     // Handle form submission
     function handleFormSubmit(event) {
