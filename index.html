@@ -215,41 +215,46 @@
     </div>
 
     <script>
-        const form = document.getElementById('level-request-form');
-        const audio = document.getElementById('myAudio');
-        const playPauseButton = document.getElementById('playPauseButton');
+const form = document.getElementById('level-request-form');
+const audio = document.getElementById('myAudio');
+const playPauseButton = document.getElementById('playPauseButton');
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const levelId = document.getElementById('id').value;
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const levelId = document.getElementById('id').value;
 
-            fetch('https://levelrequests.work.gd:25619/request', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id: levelId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                alert('Level ID submitted successfully!');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Error submitting level ID.');
-            });
-        });
-
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play();
-                playPauseButton.src = "musicoff.png"; // Change to pause icon
-            } else {
-                audio.pause();
-                playPauseButton.src = "musicon.png"; // Change to play icon
-            }
+    fetch('https://levelrequests.work.gd:25619/request', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: levelId })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-    </script>
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        alert('Level ID submitted successfully!');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Error submitting level ID. Check the console for details.');
+    });
+});
+
+function toggleAudio() {
+    if (audio.paused) {
+        audio.play();
+        playPauseButton.src = "musicoff.png"; // Change to pause icon
+    } else {
+        audio.pause();
+        playPauseButton.src = "musicon.png"; // Change to play icon
+    }
+}
+</script>
 </body>
 </html>
