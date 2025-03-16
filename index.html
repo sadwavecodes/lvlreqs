@@ -79,19 +79,25 @@
         }
 
         .button input[type="image"] {
-            max-width: 100px;
+            max-width: 200px; /* Larger Send Level button */
             height: auto;
             cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .button input[type="image"]:hover {
+            transform: scale(1.1); /* Slight hover effect */
         }
 
         .audiobut img {
-            max-width: 50px;
+            max-width: 30px; /* Smaller Music button */
             height: auto;
             cursor: pointer;
+            margin-top: 10px;
         }
 
         .login img {
-            max-width: 100px;
+            max-width: 50px; /* Smaller Login button */
             height: auto;
             margin-top: 20px;
         }
@@ -144,15 +150,15 @@
             }
 
             .button input[type="image"] {
-                max-width: 80px;
+                max-width: 150px; /* Adjusted for mobile */
             }
 
             .audiobut img {
-                max-width: 40px;
+                max-width: 25px; /* Adjusted for mobile */
             }
 
             .login img {
-                max-width: 80px;
+                max-width: 40px; /* Adjusted for mobile */
             }
         }
     </style>
