@@ -1,99 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="title" content="Geometry Dash Level Requests">
-  <meta name="keywords" content="level requests, geometry dash level requests, gd mod, geometry dash moderator, get my level sent, get my level rated">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Geometry Dash Level Requests website with requests sent directly to me where I will send good ones to moderators.">
-  <title>Geometry Dash Level Requests</title>
-  <link rel="icon" type="image/png" href="mod button.ico">
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Geometry Dash Level Requests">
+    <meta name="keywords" content="level requests, geometry dash level requests, gd mod, geometry dash moderator, get my level sent, get my level rated">
+    <meta name="description" content="Geometry Dash Level Requests website with requests sent directly to me where I will send good ones to moderators.">
+    <title>Geometry Dash Level Requests</title>
+    <link rel="icon" type="image/png" href="mod button.ico">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .title img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .gd img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .discord-button img,
+        .youtube-button img {
+            max-width: 50px;
+            height: auto;
+            margin: 0 10px;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            max-width: 400px;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-size: 18px;
+            text-align: center;
+            background-color: rgba(15, 34, 83, 0.8);
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #ccc;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            background-color: rgba(15, 34, 83, 1);
+        }
+
+        .button input[type="image"] {
+            max-width: 100px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .audiobut img {
+            max-width: 50px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .login img {
+            max-width: 100px;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        .corner1 img,
+        .corner2 img,
+        .corner3 img,
+        .corner4 img {
+            max-width: 50px;
+            height: auto;
+            position: absolute;
+        }
+
+        .corner1 img {
+            left: 0;
+            top: 0;
+            transform: rotate(90deg);
+        }
+
+        .corner2 img {
+            right: 0;
+            top: 0;
+            transform: rotate(180deg);
+        }
+
+        .corner3 img {
+            right: 0;
+            bottom: 0;
+            transform: rotate(270deg);
+        }
+
+        .corner4 img {
+            left: 0;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            input[type="text"] {
+                width: 90%;
+                font-size: 16px;
+            }
+
+            .discord-button img,
+            .youtube-button img {
+                max-width: 40px;
+            }
+
+            .button input[type="image"] {
+                max-width: 80px;
+            }
+
+            .audiobut img {
+                max-width: 40px;
+            }
+
+            .login img {
+                max-width: 80px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="corner1">
-    <img src="corner.png">
-  </div>
-  <div class="corner2">
-    <img src="corner.png">
-  </div>
-  <div class="corner3">
-    <img src="corner.png">
-  </div>
-  <div class="corner4">
-    <img src="corner.png">
-  </div>
-  
-  <audio id="myAudio">
-    <source src="bgm.mp3" type="audio/mp3">
-    Your browser doesn't support audio!
-  </audio>
-
-  <div class="gd">
-    <img src="logo - Geometry Dash.png">
-  </div>
-  <div class="title">
-    <a href="https://discord.gg/gdrequests" class="discord-button">
-      <img src="discordbut.png" alt="Discord Button">
-    </a>
-    <img src="gold - Level Requests.png" alt="Title"> 
-    <a href="https://youtube.com/@sadwave_" class="youtube-button">
-      <img src="youtubebut.png" alt="Youtube Button">
-    </a>
-  </div>
-
-  <form id="level-request-form">
-    <input name="id" type="text" id="id" placeholder="Enter Level ID" required>
-    <div class="button">
-      <input id="btn" type="submit" src="sendlevel.png" alt="Send Level">
+    <div class="corner1">
+        <img src="corner.png" alt="Corner Decoration">
     </div>
-  </form>
+    <div class="corner2">
+        <img src="corner.png" alt="Corner Decoration">
+    </div>
+    <div class="corner3">
+        <img src="corner.png" alt="Corner Decoration">
+    </div>
+    <div class="corner4">
+        <img src="corner.png" alt="Corner Decoration">
+    </div>
 
-  <div class="audiobut">
-    <img src="musicon.png" id="playPauseButton" onclick="toggleAudio()" alt="Music Toggle">
-  </div>
+    <audio id="myAudio">
+        <source src="bgm.mp3" type="audio/mp3">
+        Your browser doesn't support audio!
+    </audio>
 
-  <div class="login">
-    <a href="https://sadwave.cloud">
-      <img src="login.png" alt="Login Button">
-    </a>
-  </div>
+    <div class="container">
+        <div class="gd">
+            <img src="logo - Geometry Dash.png" alt="Geometry Dash Logo">
+        </div>
+        <div class="title">
+            <a href="https://discord.gg/gdrequests" class="discord-button">
+                <img src="discordbut.png" alt="Discord Button">
+            </a>
+            <img src="gold - Level Requests.png" alt="Title">
+            <a href="https://youtube.com/@sadwave_" class="youtube-button">
+                <img src="youtubebut.png" alt="Youtube Button">
+            </a>
+        </div>
 
-  <script>
-    const form = document.getElementById('level-request-form');
+        <form id="level-request-form">
+            <input name="id" type="text" id="id" placeholder="Enter Level ID" required>
+            <div class="button">
+                <input id="btn" type="image" src="sendlevel.png" alt="Send Level">
+            </div>
+        </form>
 
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      const levelId = document.getElementById('id').value;
+        <div class="audiobut">
+            <img src="musicon.png" id="playPauseButton" onclick="toggleAudio()" alt="Music Toggle">
+        </div>
 
-      fetch('http://49.12.134.110:25619/request', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Basic ' + btoa('sadwave:123stinkystreet')
-        },
-        body: JSON.stringify({ id: levelId })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        alert('Level ID submitted successfully!');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        alert('Error submitting level ID.');
-      });
-    });
+        <div class="login">
+            <a href="https://sadwave.cloud">
+                <img src="login.png" alt="Login Button">
+            </a>
+        </div>
+    </div>
 
-    function toggleAudio() {
-      const audio = document.getElementById('myAudio');
-      if (audio.paused) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    }
-  </script>
+    <script>
+        const form = document.getElementById('level-request-form');
+        const audio = document.getElementById('myAudio');
+        const playPauseButton = document.getElementById('playPauseButton');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const levelId = document.getElementById('id').value;
+
+            fetch('http://49.12.134.110:25619/request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: levelId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Level ID submitted successfully!');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error submitting level ID.');
+            });
+        });
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                playPauseButton.src = "musicoff.png"; // Change to pause icon
+            } else {
+                audio.pause();
+                playPauseButton.src = "musicon.png"; // Change to play icon
+            }
+        }
+    </script>
 </body>
 </html>
