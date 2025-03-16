@@ -223,11 +223,14 @@ form.addEventListener('submit', function(event) {
     event.preventDefault();
     const levelId = document.getElementById('id').value;
 
-    // Use corsproxy.io as the proxy
-    const proxyUrl = 'https://api.corsproxy.io/';
+    // Use corsproxy.io with the correct URL format
+    const proxyUrl = 'https://corsproxy.io/?url=';
     const targetUrl = 'http://49.12.134.110:25619/request';
     
-    fetch(proxyUrl + encodeURIComponent(targetUrl), {
+    // Encode the target URL and append it to the proxy URL
+    const fullUrl = proxyUrl + encodeURIComponent(targetUrl);
+
+    fetch(fullUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
