@@ -213,48 +213,56 @@
             </a>
         </div>
     </div>
+<script>
+const form = document.getElementById('level-request-form');
+const audio = document.getElementById('myAudio');
+const playPauseButton = document.getElementById('playPauseButton');
 
-    <script>
 form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const levelId = document.getElementById('id').value;
+  event.preventDefault();
+  const levelId = document.getElementById('id').value;
 
-    //Glitch proxy
-    const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+  if (!levelId) {
+    alert('Please enter a Level ID');
+    return;
+  }
 
-    fetch(proxyUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: JSON.stringify({ id: levelId })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        alert('Level ID submitted successfully!');
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error submitting level ID. Check the console for details.');
-    });
+  // Use your Glitch proxy
+  const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+
+  fetch(proxyUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: JSON.stringify({ id: levelId }) // Send the Level ID to the proxy
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
+    alert('Level ID submitted successfully!');
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    alert('Error submitting level ID. Check the console for details.');
+  });
 });
 
 function toggleAudio() {
-    if (audio.paused) {
-        audio.play();
-        playPauseButton.src = "musicoff.png";
-    } else {
-        audio.pause();
-        playPauseButton.src = "musicon.png";
-    }
+  if (audio.paused) {
+    audio.play();
+    playPauseButton.src = "musicoff.png";
+  } else {
+    audio.pause();
+    playPauseButton.src = "musicon.png";
+  }
 }
-    </script>
+</script>
 </body>
 </html>
