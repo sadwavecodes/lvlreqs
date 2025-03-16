@@ -161,6 +161,60 @@
                 max-width: 40px; /* Adjusted for mobile */
             }
         }
+
+        .gd-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #995433;
+            border: 5px solid #040102;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .gd-popup h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .gd-popup p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .gd-popup button {
+            background-color: #21ff19;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .gd-popup button:hover {
+            background-color: #e6b800;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
@@ -213,56 +267,84 @@
             </a>
         </div>
     </div>
-<script>
-const form = document.getElementById('level-request-form');
-const audio = document.getElementById('myAudio');
-const playPauseButton = document.getElementById('playPauseButton');
 
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-  const levelId = document.getElementById('id').value;
+    <!-- Popup -->
+    <div class="overlay" id="overlay"></div>
+    <div class="gd-popup" id="gdPopup">
+        <h2 id="popupTitle"></h2>
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">OK</button>
+    </div>
 
-  if (!levelId) {
-    alert('Please enter a Level ID');
-    return;
-  }
+    <script>
+        const form = document.getElementById('level-request-form');
+        const audio = document.getElementById('myAudio');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const overlay = document.getElementById('overlay');
+        const gdPopup = document.getElementById('gdPopup');
+        const popupTitle = document.getElementById('popupTitle');
+        const popupMessage = document.getElementById('popupMessage');
 
-  // Use your Glitch proxy
-  const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+        function showPopup(title, message) {
+            popupTitle.textContent = title;
+            popupMessage.textContent = message;
+            gdPopup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
 
-  fetch(proxyUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    },
-    body: JSON.stringify({ id: levelId }) // Send the Level ID to the proxy
-  })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Success:', data);
-    alert('Level ID submitted successfully!');
-  })
-  .catch((error) => {
-    console.error('Error:', error);
-    alert('Error submitting level ID. Check the console for details.');
-  });
-});
+        function closePopup() {
+            gdPopup.style.display = 'none';
+            overlay.style.display = 'none';
+        }
 
-function toggleAudio() {
-  if (audio.paused) {
-    audio.play();
-    playPauseButton.src = "musicoff.png";
-  } else {
-    audio.pause();
-    playPauseButton.src = "musicon.png";
-  }
-}
-</script>
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const levelId = document.getElementById('id').value;
+
+            if (!levelId) {
+                showPopup('Error', 'Please enter a Level ID');
+                return;
+            }
+
+            // Use your Glitch proxy
+            const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+
+            fetch(proxyUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ id: levelId }) // Send the Level ID to the proxy
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.status === 'error' && data.message === 'Level ID already exists') {
+                    showPopup('Error', 'ID already requested!');
+                } else {
+                    showPopup('Success', 'Level ID submitted successfully!');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                showPopup('Network Failed', 'Error submitting level ID. Please try again.');
+            });
+        });
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                playPauseButton.src = "musicoff.png";
+            } else {
+                audio.pause();
+                playPauseButton.src = "musicon.png";
+            }
+        }
+    </script>
 </body>
 </html>
