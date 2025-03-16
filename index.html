@@ -223,11 +223,11 @@ form.addEventListener('submit', function(event) {
     event.preventDefault();
     const levelId = document.getElementById('id').value;
 
-    // Use CORS proxy
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const targetUrl = 'http:49.12.134.110:25619/request';
+    // Use corsproxy.io as the proxy
+    const proxyUrl = 'https://api.corsproxy.io/';
+    const targetUrl = 'http://49.12.134.110:25619/request';
     
-    fetch(proxyUrl + targetUrl, {
+    fetch(proxyUrl + encodeURIComponent(targetUrl), {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
