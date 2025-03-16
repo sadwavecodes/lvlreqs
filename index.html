@@ -215,22 +215,14 @@
     </div>
 
     <script>
-const form = document.getElementById('level-request-form');
-const audio = document.getElementById('myAudio');
-const playPauseButton = document.getElementById('playPauseButton');
-
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     const levelId = document.getElementById('id').value;
 
-    // Use corsproxy.io with the correct URL format
-    const proxyUrl = 'https://corsproxy.io/?url=';
-    const targetUrl = 'http://49.12.134.110:25619/request';
-    
-    // Encode the target URL and append it to the proxy URL
-    const fullUrl = proxyUrl + encodeURIComponent(targetUrl);
+    //Glitch proxy
+    const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
 
-    fetch(fullUrl, {
+    fetch(proxyUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
