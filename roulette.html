@@ -40,11 +40,18 @@
             height: 300px;
             position: relative;
             margin: 0 auto;
-        }
-
-        .roulette-wheel img {
-            width: 100%;
-            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: conic-gradient(
+                red 0deg 51.4deg,
+                orange 51.4deg 102.8deg,
+                yellow 102.8deg 154.2deg,
+                green 154.2deg 205.6deg,
+                blue 205.6deg 257deg,
+                indigo 257deg 308.4deg,
+                violet 308.4deg 360deg
+            );
+            transform: rotate(0deg);
             transition: transform 3s ease-out;
         }
 
@@ -62,6 +69,12 @@
 
         .spin-button:hover {
             background-color: #e6b800;
+        }
+
+        .description {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #ccc;
         }
 
         .result-popup {
@@ -120,10 +133,11 @@
 </head>
 <body>
     <div class="container">
-        <div class="roulette-wheel">
-            <img id="rouletteImage" src="roulette.png" alt="Roulette Wheel">
-        </div>
+        <div class="roulette-wheel" id="rouletteWheel"></div>
         <button class="spin-button" onclick="spinRoulette()">Spin</button>
+        <div class="description">
+            Spin the roulette wheel to get a random Geometry Dash level ID! Only levels requested here are in play!
+        </div>
     </div>
 
     <!-- Result Popup -->
@@ -135,7 +149,7 @@
     </div>
 
     <script>
-        const rouletteImage = document.getElementById('rouletteImage');
+        const rouletteWheel = document.getElementById('rouletteWheel');
         const resultPopup = document.getElementById('resultPopup');
         const levelIdSpan = document.getElementById('levelId');
         const overlay = document.getElementById('overlay');
@@ -146,47 +160,53 @@
             spinButton.disabled = true;
 
             // Rotate the roulette wheel
-            rouletteImage.style.transform = 'rotate(1080deg)'; // 3 full rotations
+            const randomRotation = 1080 + Math.floor(Math.random() * 360); // Random spin
+            rouletteWheel.style.transform = `rotate(${randomRotation}deg)`;
 
             // Fetch a random level from the database
             fetchRandomLevel().then(levelId => {
                 // Show the result after the animation ends
                 setTimeout(() => {
-                    rouletteImage.style.transform = 'rotate(0deg)';
+                    rouletteWheel.style.transform = 'rotate(0deg)';
                     spinButton.disabled = false;
                     showResult(levelId);
                 }, 3000); // Match the duration of the rotation
             });
         }
 
-async function fetchRandomLevel() {
-    const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+        async function fetchRandomLevel() {
+            const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
 
-    try {
-        const response = await fetch(proxyUrl, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
+            try {
+                const response = await fetch(proxyUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch levels');
+                }
+
+                const data = await response.json();
+                const levels = data.levels;
+
+                // Filter out non-numeric level IDs
+                const numericLevels = levels.filter(level => /^\d+$/.test(level));
+
+                if (numericLevels.length === 0) {
+                    throw new Error('No numeric levels found');
+                }
+
+                const randomIndex = Math.floor(Math.random() * numericLevels.length);
+                return numericLevels[randomIndex]; // Return a random numeric level ID
+            } catch (error) {
+                console.error('Error fetching levels:', error);
+                return 'Error: Could not fetch level';
             }
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch levels');
         }
-
-        const data = await response.json();
-        const levels = data.levels;
-        if (levels.length === 0) {
-            throw new Error('No levels found');
-        }
-        const randomIndex = Math.floor(Math.random() * levels.length);
-        return levels[randomIndex]; // Return a random level ID
-    } catch (error) {
-        console.error('Error fetching levels:', error);
-        return 'Error: Could not fetch level';
-    }
-}
 
         function showResult(levelId) {
             levelIdSpan.textContent = levelId;
