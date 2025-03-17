@@ -1,224 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Geometry Dash Level Requests - Roulette">
-    <meta name="keywords" content="geometry dash, level requests, roulette, random level">
-    <meta name="description" content="Spin the roulette wheel to get a random Geometry Dash level to play!">
-    <title>Geometry Dash Level Roulette</title>
-    <link rel="icon" type="image/png" href="mod button.ico">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url('bg.jpeg');
-            background-size: cover;
-            background-position: center;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
-            color: #fff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="title" content="Geometry Dash Level Requests - Roulette">
+  <meta name="keywords" content="geometry dash, level requests, roulette, random level">
+  <meta name="description" content="Spin the roulette wheel to get a random Geometry Dash level to play!">
+  <title>Geometry Dash Level Roulette</title>
+  <link rel="icon" type="image/png" href="mod button.ico">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('bg.jpeg');
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
+      color: #fff;
+    }
 
-        .container {
-            text-align: center;
-            max-width: 800px;
-            width: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        }
+    .container {
+      text-align: center;
+      max-width: 800px;
+      width: 100%;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
 
-        .roulette-wheel {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            margin: 0 auto;
-            border-radius: 50%;
-            overflow: hidden;
-            background: conic-gradient(
-                red 0deg 51.4deg,
-                orange 51.4deg 102.8deg,
-                yellow 102.8deg 154.2deg,
-                green 154.2deg 205.6deg,
-                blue 205.6deg 257deg,
-                indigo 257deg 308.4deg,
-                violet 308.4deg 360deg
-            );
-            transform: rotate(0deg);
-            transition: transform 3s ease-out;
-        }
+    .roulette-wheel {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      margin: 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      background: conic-gradient(
+        red 0deg 51.4deg,
+        orange 51.4deg 102.8deg,
+        yellow 102.8deg 154.2deg,
+        green 154.2deg 205.6deg,
+        blue 205.6deg 257deg,
+        indigo 257deg 308.4deg,
+        violet 308.4deg 360deg
+      );
+      transform: rotate(0deg);
+      transition: transform 3s ease-out;
+    }
 
-        .spin-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #21ff19;
-            color: #1a1a1a;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
-        }
+    /* Style for the spin button that uses the image */
+    .spin-button {
+      margin-top: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+    }
 
-        .spin-button:hover {
-            background-color: #e6b800;
-        }
+    .spin-button img {
+      width: 100px;  /* Adjust the width as needed */
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
 
-        .description {
-            margin-top: 20px;
-            font-size: 16px;
-            color: #ccc;
-        }
+    .description {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #ccc;
+    }
 
-        .result-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #995433;
-            border: 5px solid #040102;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            color: #fff;
-            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
+    .result-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #995433;
+      border: 5px solid #040102;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+      font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
 
-        .result-popup h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+    .result-popup h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
-        .result-popup p {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
+    .result-popup p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
 
-        .result-popup button {
-            background-color: #21ff19;
-            color: #1a1a1a;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
-        }
+    .result-popup button {
+      background-color: #21ff19;
+      color: #1a1a1a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: 'pusab', Verdana, Geneva, Tahoma, sans-serif;
+    }
 
-        .result-popup button:hover {
-            background-color: #e6b800;
-        }
+    .result-popup button:hover {
+      background-color: #e6b800;
+    }
 
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 999;
-        }
-    </style>
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .roulette-wheel {
+        width: 200px;
+        height: 200px;
+      }
+      .spin-button img {
+        width: 80px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="roulette-wheel" id="rouletteWheel"></div>
-        <button class="spin-button" onclick="spinRoulette()">
-    <img src="spin.png" alt="Spin">
-        <div class="description">
-            Spin the roulette wheel to get a random Geometry Dash level ID! Only levels requested here are in play!
-        </div>
+  <div class="container">
+    <div class="roulette-wheel" id="rouletteWheel"></div>
+    <!-- The spin image now acts as the button -->
+    <button class="spin-button" onclick="spinRoulette()">
+      <img src="spin.png" alt="Spin">
+    </button>
+    <div class="description">
+      Spin the roulette wheel to get a random Geometry Dash level ID! Only levels requested here are in play!
     </div>
+  </div>
 
-    <!-- Result Popup -->
-    <div class="overlay" id="overlay"></div>
-    <div class="result-popup" id="resultPopup">
-        <h2>Level Found!</h2>
-        <p>Your random level ID is: <span id="levelId"></span></p>
-        <button onclick="closePopup()">OK</button>
-    </div>
+  <!-- Result Popup -->
+  <div class="overlay" id="overlay"></div>
+  <div class="result-popup" id="resultPopup">
+    <h2>Level Found!</h2>
+    <p>Your random level ID is: <span id="levelId"></span></p>
+    <button onclick="closePopup()">OK</button>
+  </div>
 
-    <script>
-        const rouletteWheel = document.getElementById('rouletteWheel');
-        const resultPopup = document.getElementById('resultPopup');
-        const levelIdSpan = document.getElementById('levelId');
-        const overlay = document.getElementById('overlay');
+  <script>
+    const rouletteWheel = document.getElementById('rouletteWheel');
+    const resultPopup = document.getElementById('resultPopup');
+    const levelIdSpan = document.getElementById('levelId');
+    const overlay = document.getElementById('overlay');
 
-        function spinRoulette() {
-            // Disable the spin button during animation
-            const spinButton = document.querySelector('.spin-button');
-            spinButton.disabled = true;
+    function spinRoulette() {
+      // Disable the spin button during animation
+      const spinButton = document.querySelector('.spin-button');
+      spinButton.disabled = true;
 
-            // Rotate the roulette wheel
-            const randomRotation = 1080 + Math.floor(Math.random() * 360); // Random spin
-            rouletteWheel.style.transform = `rotate(${randomRotation}deg)`;
+      // Rotate the roulette wheel
+      const randomRotation = 1080 + Math.floor(Math.random() * 360); // Random spin
+      rouletteWheel.style.transform = `rotate(${randomRotation}deg)`;
 
-            // Fetch a random level from the database
-            fetchRandomLevel().then(levelId => {
-                // Show the result after the animation ends
-                setTimeout(() => {
-                    rouletteWheel.style.transform = 'rotate(0deg)';
-                    spinButton.disabled = false;
-                    showResult(levelId);
-                }, 3000); // Match the duration of the rotation
-            });
+      // Fetch a random level from the database
+      fetchRandomLevel().then(levelId => {
+        // Show the result after the animation ends
+        setTimeout(() => {
+          rouletteWheel.style.transform = 'rotate(0deg)';
+          spinButton.disabled = false;
+          showResult(levelId);
+        }, 3000); // Match the duration of the rotation
+      });
+    }
+
+    async function fetchRandomLevel() {
+      const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+
+      try {
+        const response = await fetch(proxyUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch levels');
         }
 
-        async function fetchRandomLevel() {
-            const proxyUrl = 'https://intermediate-principled-dolphin.glitch.me/proxy';
+        const data = await response.json();
+        const levels = data.levels;
 
-            try {
-                const response = await fetch(proxyUrl, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
+        // Filter out non-numeric level IDs
+        const numericLevels = levels.filter(level => /^\d+$/.test(level));
 
-                if (!response.ok) {
-                    throw new Error('Failed to fetch levels');
-                }
-
-                const data = await response.json();
-                const levels = data.levels;
-
-                // Filter out non-numeric level IDs
-                const numericLevels = levels.filter(level => /^\d+$/.test(level));
-
-                if (numericLevels.length === 0) {
-                    throw new Error('No numeric levels found');
-                }
-
-                const randomIndex = Math.floor(Math.random() * numericLevels.length);
-                return numericLevels[randomIndex]; // Return a random numeric level ID
-            } catch (error) {
-                console.error('Error fetching levels:', error);
-                return 'Error: Could not fetch level';
-            }
+        if (numericLevels.length === 0) {
+          throw new Error('No numeric levels found');
         }
 
-        function showResult(levelId) {
-            levelIdSpan.textContent = levelId;
-            resultPopup.style.display = 'block';
-            overlay.style.display = 'block';
-        }
+        const randomIndex = Math.floor(Math.random() * numericLevels.length);
+        return numericLevels[randomIndex]; // Return a random numeric level ID
+      } catch (error) {
+        console.error('Error fetching levels:', error);
+        return 'Error: Could not fetch level';
+      }
+    }
 
-        function closePopup() {
-            resultPopup.style.display = 'none';
-            overlay.style.display = 'none';
-        }
-    </script>
+    function showResult(levelId) {
+      levelIdSpan.textContent = levelId;
+      resultPopup.style.display = 'block';
+      overlay.style.display = 'block';
+    }
+
+    function closePopup() {
+      resultPopup.style.display = 'none';
+      overlay.style.display = 'none';
+    }
+  </script>
 </body>
 </html>
