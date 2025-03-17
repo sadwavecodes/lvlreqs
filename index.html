@@ -215,6 +215,26 @@
             background-color: rgba(0, 0, 0, 0.7);
             z-index: 999;
         }
+
+
+        .roulette-button {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 100%; 
+        text-align: center;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+        .roulette-button img {
+            max-width: 90%; 
+        }
+    }
+
+        
     </style>
 </head>
 <body>
@@ -268,9 +288,11 @@
         </div>
     </div>
 
+<div class="roulette-button">
     <a href="roulette">
-    <img src="roulette.png" alt="Roulette Button" style="max-width: 100px; margin-top: 20px; text-align: center;">
-</a>
+        <img src="roulette.png" alt="Roulette Button">
+    </a>
+</div>
 
     <!-- Popup -->
     <div class="overlay" id="overlay"></div>
